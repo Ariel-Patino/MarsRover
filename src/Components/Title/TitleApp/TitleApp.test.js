@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
-import App from "./App";
+import TitleApp from "./TitleApp";
 
-test("renders title", () => {
-  render(<App />);
+test("renders title div", () => {
+  render(<TitleApp />);
   const title = screen.getByText(/Mars Drone/i);
   expect(title).toBeInTheDocument();
 });
