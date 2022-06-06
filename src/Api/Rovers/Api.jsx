@@ -37,7 +37,6 @@ class Api {
   }
 
   _responseError(error) {
-    console.log(error, "ERROR");
     throw error;
   }
 }

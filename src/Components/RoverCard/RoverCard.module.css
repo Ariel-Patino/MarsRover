@@ -1,0 +1,33 @@
+.roverImage {
+  height: 75%;
+  max-height: 75%;
+  min-height: 75%;
+  max-width: 75%;
+  min-width: 75%;
+  margin: 25px 0 0 0;
+  cursor: pointer;
+}
+
+.roverName {
+  font-size: 2em;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.card {
+  width: 30%;
+  max-width: 30%;
+  min-width: 30%;
+  max-height: 280px;
+  margin: 5px;
+  border: 0.1em;
+  border-style: solid;
+  border-color: transparent;
+  padding-bottom: 10px;
+}
+
+.selected {
+  border: 0.1em;
+  border-color: #9a460f;
+  border-style: solid;
+}

@@ -1,5 +1,10 @@
+import RoversContainer from "../Components/Container/RoversContainer";
 const Homepage = () => {
-  return <div></div>;
+  return (
+    <div>
+      <RoversContainer />
+    </div>
+  );
 };
 
 export default Homepage;
