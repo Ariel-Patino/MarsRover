@@ -1,0 +1,19 @@
+.gallery {
+  box-sizing: border-box;
+}
+
+.column {
+  float: left;
+  width: 10%;
+  padding: 5px;
+}
+
+.row::after {
+  content: '';
+  clear: both;
+  display: table;
+}
+
+.photo {
+  width: 100%;
+}

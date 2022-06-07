@@ -28,7 +28,6 @@ const RoversContainer = () => {
   const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  //const [currentPage] = useState(1);
   const [photosByPage] = useState(25);
 
   useLayoutEffect(() => {
@@ -59,15 +58,14 @@ const RoversContainer = () => {
         setPhotos(response.photos);
         setLoading(false);
       } else if (roverPicturesBySolDay) {
-        roverService
-          .getRoverPicturesBySolDate(
-            roverSelected,
-            cameraToLookFor,
-            solToLookFor
-          )
-          .then((response) => {
-            setPhotos(response.photos);
-          });
+        setLoading(true);
+        var response = await roverService.getRoverPicturesBySolDate(
+          roverSelected,
+          cameraToLookFor,
+          solToLookFor
+        );
+        setPhotos(response.photos);
+        setLoading(false);
       }
     })();
   }, [
@@ -119,7 +117,6 @@ const RoversContainer = () => {
     setRoverPicturesBySolDay(false);
   };
   const handlePhotosPagination = (number) => {
-    console.log('JAJA', number);
     setCurrentPage(number);
   };
 
@@ -195,13 +192,24 @@ const RoversContainer = () => {
       {(solToLookFor < 0 || solToLookFor > maxSol) && (
         <Error message={`The Sol date must be between 0 and ${maxSol}`}></Error>
       )}
-      <div className={style.container}>
+      {!photos.length &&
+        roverSelected &&
+        !loading &&
+        (roverPicturesByEarthDay || roverPicturesBySolDay) && (
+          <Error message={`No photos returned`}></Error>
+        )}
+      <div className={style.gallery}>
+        <div className={style.pagination}>
+          {!loading && (
+            <Pagination
+              perPage={25}
+              total={photos.length}
+              paginate={handlePhotosPagination}
+              current={currentPage}
+            />
+          )}
+        </div>
         <Gallery pictures={currentPhotos} loading={loading} />
-        <Pagination
-          perPage={25}
-          total={photos.length}
-          paginate={handlePhotosPagination}
-        />
       </div>
     </div>
   );
