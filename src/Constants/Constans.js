@@ -5,13 +5,13 @@ export const Rovers = [
     picturePath:
       'https://mars.nasa.gov/system/news_items/main_images/8796_PIA24173-1600.jpg',
     cameras: [
-      { name: 'FHAZ', value: 'Front Hazard Avoidance Camera' },
-      { name: 'RHAZ', value: 'Rear Hazard Avoidance Camera' },
-      { name: 'MAST', value: 'Mast Camera' },
-      { name: 'CHEMCAM', value: 'Chemistry and Camera Complex' },
-      { name: 'MAHLI', value: 'Mars Hand Lens Imager' },
-      { name: 'MARDI', value: 'Mars Descent Imager' },
-      { name: 'NAVCAM', value: 'Navigation Camera' }
+      { value: 'FHAZ', name: 'Front Hazard Avoidance Camera' },
+      { value: 'RHAZ', name: 'Rear Hazard Avoidance Camera' },
+      { value: 'MAST', name: 'Mast Camera' },
+      { value: 'CHEMCAM', name: 'Chemistry and Camera Complex' },
+      { value: 'MAHLI', name: 'Mars Hand Lens Imager' },
+      { value: 'MARDI', name: 'Mars Descent Imager' },
+      { value: 'NAVCAM', name: 'Navigation Camera' }
     ]
   },
   {
@@ -20,13 +20,13 @@ export const Rovers = [
     picturePath:
       'https://mars.nasa.gov/layout/mer/images/mars-exploration-rover.png',
     cameras: [
-      { name: 'FHAZ', value: 'Front Hazard Avoidance Camera' },
-      { name: 'RHAZ', value: 'Rear Hazard Avoidance Camera' },
-      { name: 'NAVCAM', value: 'Navigation Camera' },
-      { name: 'PANCAM', value: 'Panoramic Camera' },
+      { value: 'FHAZ', name: 'Front Hazard Avoidance Camera' },
+      { value: 'RHAZ', name: 'Rear Hazard Avoidance Camera' },
+      { value: 'NAVCAM', name: 'Navigation Camera' },
+      { value: 'PANCAM', name: 'Panoramic Camera' },
       {
-        name: 'MINITES',
-        value: 'Miniature Thermal Emission Spectrometer (Mini-TES)'
+        value: 'MINITES',
+        name: 'Miniature Thermal Emission Spectrometer (Mini-TES)'
       }
     ]
   },
@@ -36,13 +36,13 @@ export const Rovers = [
     picturePath:
       '	https://mars.nasa.gov/system/content_pages/main_images/365_MER-1280.jpg',
     cameras: [
-      { name: 'FHAZ', value: 'Front Hazard Avoidance Camera' },
-      { name: 'RHAZ', value: 'Rear Hazard Avoidance Camera' },
-      { name: 'NAVCAM', value: 'Navigation Camera' },
-      { name: 'PANCAM', value: 'Panoramic Camera' },
+      { value: 'FHAZ', name: 'Front Hazard Avoidance Camera' },
+      { value: 'RHAZ', name: 'Rear Hazard Avoidance Camera' },
+      { value: 'NAVCAM', name: 'Navigation Camera' },
+      { value: 'PANCAM', name: 'Panoramic Camera' },
       {
-        name: 'MINITES',
-        value: 'Miniature Thermal Emission Spectrometer (Mini-TES)'
+        value: 'MINITES',
+        name: 'Miniature Thermal Emission Spectrometer (Mini-TES)'
       }
     ]
   }

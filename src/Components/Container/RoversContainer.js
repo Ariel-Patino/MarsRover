@@ -8,17 +8,20 @@ import curiosityInfoService from '../../Api/Rovers/Curiosity/CuriosityService';
 import spiritInfoService from '../../Api/Rovers/Spirit/SpiritService';
 import opportunityInfoService from '../../Api/Rovers/Opportunity/OpportunityService';
 import Error from '../Message/Error/Error';
+import DropDownBox from '../DropDownBox/DropDownBox';
+import InputNumber from '../Input/Number/InputNumber';
+import InputText from '../Input/Text/InputText';
 
 const RoversContainer = () => {
   const roversAvailable = Rovers;
   const [roverSelected, setRoverSelected] = useState('');
+  const [cameras, setCameras] = useState([]);
   const [roverEmpty, setRoverEmpty] = useState(false);
   const [maxDate, setMaxDate] = useState('');
   const [maxSol, setMaxSol] = useState(0);
   const [landingDate, setLandingDate] = useState('');
-
-  let dateToLookFor = '';
-  let solToLookFor = 0;
+  const [solToLookFor, setSolToLookFor] = useState(0);
+  const [dateToLookFor, setDateToLookFor] = useState('');
 
   useLayoutEffect(() => {
     (async () => {
@@ -56,10 +59,27 @@ const RoversContainer = () => {
 
   const clickSelecRover = (event) => {
     setRoverSelected(event.target.attributes.customname.value);
+    setCameras(
+      roversAvailable.find(
+        (r) => r.name === event.target.attributes.customname.value
+      ).cameras
+    );
   };
 
   const searchClick = () => {
     setRoverEmpty(!roverEmpty);
+  };
+
+  const handleCameraChange = (event) => {
+    console.log(event.target.value);
+  };
+
+  const handleSolDateChange = (event) => {
+    setSolToLookFor(event.target.value);
+  };
+
+  const handleDateChange = (event) => {
+    setDateToLookFor(event.target.value);
   };
 
   return (
@@ -78,33 +98,49 @@ const RoversContainer = () => {
           );
         })}
       </div>
-      <div className={style.container}>
-        {maxDate} {landingDate}
-        <div></div>
+      <div className={`${style.container} ${style.searchOptions}`}>
         <div>
-          <SearchButton title={'Rover Pictures'} click={searchClick} />
-        </div>
-        <div>
-          <SearchButton title={'Rover Pictures'} click={searchClick} />
+          {cameras.length !== 0 && (
+            <DropDownBox
+              options={cameras}
+              title={'camera'}
+              handleChange={handleCameraChange}
+            />
+          )}
         </div>
         <div>
           {roverSelected && (
-            <SearchButton title={'Rover Pictures'} click={searchClick} />
+            <InputText
+              title={'Earth Date'}
+              handleChange={handleDateChange}
+              placeholder={'Earth date YYYY-MM-dd'}
+            />
           )}
+        </div>
+        <div>
+          {roverSelected && (
+            <InputNumber
+              title={'Sol Date'}
+              min={0}
+              max={maxSol}
+              handleChange={handleSolDateChange}
+            />
+          )}
+        </div>
+        <div>
+          {roverSelected && <SearchButton title={''} click={searchClick} />}
         </div>
       </div>
       {roverEmpty && (
         <Error message={'Must pick a Rover to retrieve pictures'}></Error>
       )}
-      {dateToLookFor == '' && (
+      {dateToLookFor == '' && roverSelected && (
         <Error
-          message={`The Rage Sol date for ${roverSelected} must be between 0 and ${maxSol}`}
+          message={`The Earth date should be between ${landingDate} and ${maxDate}`}
         ></Error>
       )}
       {(solToLookFor < 0 || solToLookFor > maxSol) && (
-        <Error
-          message={`The Rage Sol date for ${roverSelected} must be between 0 and ${maxSol}`}
-        ></Error>
+        <Error message={`The Sol date must be between 0 and ${maxSol}`}></Error>
       )}
     </div>
   );
