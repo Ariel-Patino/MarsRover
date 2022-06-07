@@ -6,7 +6,7 @@ class OpportunityInfoService extends ConfiguratorProvider {
   }
 }
 const opportunityInfoService = new OpportunityInfoService(
-  "/opportunity?api_key=hDDrUNIRT1CJ1Osg2AsNf2pLKhytt7XVSFZ1yaDo"
+  "/opportunity?api_key=" + process.env.REACT_APP_KEY_API
 );
 
 export default opportunityInfoService;

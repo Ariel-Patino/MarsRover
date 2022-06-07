@@ -1,9 +1,9 @@
 import Api from "./Api";
-import config from "../../Config";
+import { roversApiUrl } from "../../Config";
 
 class ConfiguratorProvider extends Api {
   constructor(endpoint) {
-    super(config.roversApiUrl, endpoint);
+    super(roversApiUrl, endpoint);
   }
 }
 

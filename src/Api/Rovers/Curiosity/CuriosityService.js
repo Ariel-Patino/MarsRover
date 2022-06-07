@@ -6,7 +6,7 @@ class CuriosityInfoService extends ConfiguratorProvider {
   }
 }
 const curiosityInfoService = new CuriosityInfoService(
-  "/curiosity?api_key=hDDrUNIRT1CJ1Osg2AsNf2pLKhytt7XVSFZ1yaDo"
+  "/curiosity?api_key=" + process.env.REACT_APP_KEY_API
 );
 
 export default curiosityInfoService;

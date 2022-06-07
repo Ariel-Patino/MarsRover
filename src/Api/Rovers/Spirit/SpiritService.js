@@ -6,7 +6,7 @@ class SpiritInfoService extends ConfiguratorProvider {
   }
 }
 const spiritInfoService = new SpiritInfoService(
-  "/spirit?api_key=hDDrUNIRT1CJ1Osg2AsNf2pLKhytt7XVSFZ1yaDo"
+  "/spirit?api_key=" + process.env.REACT_APP_KEY_API
 );
 
 export default spiritInfoService;

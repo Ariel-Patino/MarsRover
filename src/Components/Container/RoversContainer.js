@@ -13,6 +13,8 @@ const RoversContainer = () => {
   const roversAvailable = Rovers;
   const [roverSelected, setRoverSelected] = useState("");
   const [roverEmpty, setRoverEmpty] = useState(false);
+  const [maxDate, setMaxDate] = useState("");
+  const [maxSol, setMaxSol] = useState(0);
 
   useLayoutEffect(() => {
     (async () => {
