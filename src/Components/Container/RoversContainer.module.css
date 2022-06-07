@@ -24,7 +24,7 @@ label {
 }
 
 .searchInput {
-  display: flex
+  display: flex;
 }
 
 .searchInput .searchButton {

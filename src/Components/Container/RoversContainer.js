@@ -1,16 +1,16 @@
+import { useState, useEffect, useLayoutEffect } from 'react';
 import { Rovers } from '../../Constants/Constans';
 import RoverCard from '../RoverCard/RoverCard';
-import style from './RoversContainer.module.css';
-import { useState, useEffect, useLayoutEffect } from 'react';
 import Secondary from '../Title/Secondary/Secondary';
 import SearchButton from '../Button/Search/Search';
-import curiosityInfoService from '../../Api/Rovers/Curiosity/CuriosityService';
-import spiritInfoService from '../../Api/Rovers/Spirit/SpiritService';
-import opportunityInfoService from '../../Api/Rovers/Opportunity/OpportunityService';
 import Error from '../Message/Error/Error';
 import DropDownBox from '../DropDownBox/DropDownBox';
 import InputNumber from '../Input/Number/InputNumber';
 import InputText from '../Input/Text/InputText';
+import style from './RoversContainer.module.css';
+import roverService from '../../Api/Rovers/Services/RoversService';
+import Gallery from '../Gallery/Gallery';
+import Pagination from '../Pagination/Pagination';
 
 const RoversContainer = () => {
   const roversAvailable = Rovers;
@@ -25,42 +25,49 @@ const RoversContainer = () => {
   const [dateToLookFor, setDateToLookFor] = useState('');
   const [cameraToLookFor, setCameraToLookFor] = useState('any');
 
+  const [photos, setPhotos] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  //const [currentPage] = useState(1);
+  const [photosByPage] = useState(25);
+
   useLayoutEffect(() => {
     (async () => {
-      switch (roverSelected.toLowerCase()) {
-        case 'opportunity':
-          await opportunityInfoService.getRoverInfo().then((response) => {
+      if (roverSelected)
+        await roverService.getRoverInfo(roverSelected).then((response) => {
+          if (response.rover) {
             setLandingDate(response.rover.landing_date);
             setMaxDate(response.rover.max_date);
             setMaxSol(response.rover.max_sol);
-          });
-          break;
-        case 'spirit':
-          await spiritInfoService.getRoverInfo().then((response) => {
-            setLandingDate(response.rover.landing_date);
-            setMaxDate(response.rover.max_date);
-            setMaxSol(response.rover.max_sol);
-          });
-          break;
-        case 'curiosity':
-          await curiosityInfoService.getRoverInfo().then((response) => {
-            setLandingDate(response.rover.landing_date);
-            setMaxDate(response.rover.max_date);
-            setMaxSol(response.rover.max_sol);
-          });
-          break;
-      }
+            setSolToLookFor(response.rover.max_sol);
+            setDateToLookFor(response.rover.max_date);
+            setPhotos([]);
+          }
+        });
     })();
   }, [roverSelected]);
 
   useEffect(() => {
     (async () => {
       if (roverPicturesByEarthDay) {
-        console.log('EARTH', 'dateToLookFor', dateToLookFor, cameraToLookFor);
-        opportunityInfoService.getRoverInfo().then(() => {});
+        setLoading(true);
+        const response = await roverService.getRoverPicturesByEarthDate(
+          roverSelected,
+          cameraToLookFor,
+          dateToLookFor
+        );
+        setPhotos(response.photos);
+        setLoading(false);
       } else if (roverPicturesBySolDay) {
-        console.log('SOL', 'solToLookFor', solToLookFor, cameraToLookFor);
-        opportunityInfoService.getRoverInfo().then(() => {});
+        roverService
+          .getRoverPicturesBySolDate(
+            roverSelected,
+            cameraToLookFor,
+            solToLookFor
+          )
+          .then((response) => {
+            setPhotos(response.photos);
+          });
       }
     })();
   }, [
@@ -111,6 +118,16 @@ const RoversContainer = () => {
     setRoverPicturesByEarthDay(false);
     setRoverPicturesBySolDay(false);
   };
+  const handlePhotosPagination = (number) => {
+    console.log('JAJA', number);
+    setCurrentPage(number);
+  };
+
+  const indexOfLastPost = currentPage * photosByPage;
+  const indexOfFirstPost = indexOfLastPost - photosByPage;
+  const currentPhotos = photos
+    .reverse()
+    .slice(indexOfFirstPost, indexOfLastPost);
 
   return (
     <div>
@@ -160,7 +177,7 @@ const RoversContainer = () => {
                 title={'Sol Date'}
                 min={0}
                 max={maxSol}
-                value={solToLookFor}
+                value={parseInt(solToLookFor)}
                 handleChange={handleSolDateChange}
               />
               <div className={style.searchButton}>
@@ -178,6 +195,14 @@ const RoversContainer = () => {
       {(solToLookFor < 0 || solToLookFor > maxSol) && (
         <Error message={`The Sol date must be between 0 and ${maxSol}`}></Error>
       )}
+      <div className={style.container}>
+        <Gallery pictures={currentPhotos} loading={loading} />
+        <Pagination
+          perPage={25}
+          total={photos.length}
+          paginate={handlePhotosPagination}
+        />
+      </div>
     </div>
   );
 };
