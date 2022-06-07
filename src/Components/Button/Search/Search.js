@@ -1,5 +1,5 @@
-import style from "./Search.module.css";
-import PropTypes from "prop-types";
+import style from './Search.module.css';
+import PropTypes from 'prop-types';
 
 const SearchButton = (props) => {
   return (
@@ -15,5 +15,5 @@ export default SearchButton;
 
 SearchButton.propTypes = {
   title: PropTypes.string,
-  click: PropTypes.func,
+  click: PropTypes.func
 };

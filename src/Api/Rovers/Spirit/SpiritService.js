@@ -1,4 +1,4 @@
-import ConfiguratorProvider from "../ConfiguratorProvider";
+import ConfiguratorProvider from '../ConfiguratorProvider';
 
 class SpiritInfoService extends ConfiguratorProvider {
   async getRoverInfo() {
@@ -6,7 +6,7 @@ class SpiritInfoService extends ConfiguratorProvider {
   }
 }
 const spiritInfoService = new SpiritInfoService(
-  "/spirit?api_key=" + process.env.REACT_APP_KEY_API
+  '/spirit?api_key=' + process.env.REACT_APP_KEY_API
 );
 
 export default spiritInfoService;

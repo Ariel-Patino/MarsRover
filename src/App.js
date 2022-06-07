@@ -1,6 +1,6 @@
-import style from "./App.module.css";
-import Primary from "./Components/Title/Primary/Primary";
-import Routes from "./AppRoutes";
+import style from './App.module.css';
+import Primary from './Components/Title/Primary/Primary';
+import Routes from './AppRoutes';
 
 function App() {
   return (

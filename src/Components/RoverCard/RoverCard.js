@@ -1,5 +1,5 @@
-import style from "./RoverCard.module.css";
-import PropTypes from "prop-types";
+import style from './RoverCard.module.css';
+import PropTypes from 'prop-types';
 
 const RoverCard = (prop) => {
   return (
@@ -28,5 +28,5 @@ export default RoverCard;
 
 RoverCard.prototype = {
   roverPicturePath: PropTypes.string,
-  roverName: PropTypes.string,
+  roverName: PropTypes.string
 };

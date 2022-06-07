@@ -1,5 +1,5 @@
-import PropTypes from "prop-types";
-import style from "./Error.module.css";
+import PropTypes from 'prop-types';
+import style from './Error.module.css';
 const Error = (props) => {
   return (
     <div>
@@ -11,5 +11,5 @@ const Error = (props) => {
 export default Error;
 
 Error.propTypes = {
-  message: PropTypes.string,
+  message: PropTypes.string
 };

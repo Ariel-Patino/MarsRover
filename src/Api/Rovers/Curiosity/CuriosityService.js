@@ -1,4 +1,4 @@
-import ConfiguratorProvider from "../ConfiguratorProvider";
+import ConfiguratorProvider from '../ConfiguratorProvider';
 
 class CuriosityInfoService extends ConfiguratorProvider {
   async getRoverInfo() {
@@ -6,7 +6,7 @@ class CuriosityInfoService extends ConfiguratorProvider {
   }
 }
 const curiosityInfoService = new CuriosityInfoService(
-  "/curiosity?api_key=" + process.env.REACT_APP_KEY_API
+  '/curiosity?api_key=' + process.env.REACT_APP_KEY_API
 );
 
 export default curiosityInfoService;

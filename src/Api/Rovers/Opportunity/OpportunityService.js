@@ -1,4 +1,4 @@
-import ConfiguratorProvider from "../ConfiguratorProvider";
+import ConfiguratorProvider from '../ConfiguratorProvider';
 
 class OpportunityInfoService extends ConfiguratorProvider {
   async getRoverInfo() {
@@ -6,7 +6,7 @@ class OpportunityInfoService extends ConfiguratorProvider {
   }
 }
 const opportunityInfoService = new OpportunityInfoService(
-  "/opportunity?api_key=" + process.env.REACT_APP_KEY_API
+  '/opportunity?api_key=' + process.env.REACT_APP_KEY_API
 );
 
 export default opportunityInfoService;

@@ -5,3 +5,9 @@
   width: 960px;
   padding-left: 70px;
 }
+
+.searchControl {
+  margin-left: auto;
+  margin-right: auto;
+  width: 960px;
+}

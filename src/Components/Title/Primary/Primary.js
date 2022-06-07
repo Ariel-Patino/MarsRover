@@ -1,5 +1,5 @@
-import style from "./Primary.module.css";
-import PropTypes from "prop-types";
+import style from './Primary.module.css';
+import PropTypes from 'prop-types';
 
 const Primary = (props) => {
   return <h1 className={style.title}>{props.title}</h1>;
@@ -8,5 +8,5 @@ const Primary = (props) => {
 export default Primary;
 
 Primary.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.string
 };
