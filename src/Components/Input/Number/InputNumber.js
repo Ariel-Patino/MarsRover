@@ -10,6 +10,7 @@ const InputNumber = (props) => {
         className={style.inputText}
         type="number"
         name="inputText"
+        value={props.value}
         onChange={props.handleChange}
         placeholder={`Insert a number between ${props.min} and ${props.max}`}
       />
@@ -23,5 +24,6 @@ InputNumber.propTypes = {
   title: PropTypes.string.isRequired,
   handleChange: PropTypes.func,
   min: PropTypes.number,
-  max: PropTypes.number
+  max: PropTypes.number,
+  value: PropTypes.number
 };

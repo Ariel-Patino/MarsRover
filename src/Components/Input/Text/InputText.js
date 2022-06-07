@@ -11,6 +11,7 @@ const InputText = (props) => {
         type="text"
         name="inputText"
         onChange={props.handleChange}
+        value={props.value}
         placeholder={`Insert ${props.placeholder}`}
       />
     </div>
@@ -22,5 +23,6 @@ export default InputText;
 InputText.propTypes = {
   title: PropTypes.string.isRequired,
   handleChange: PropTypes.func,
-  placeholder: PropTypes.string
+  placeholder: PropTypes.string,
+  value: PropTypes.string
 };

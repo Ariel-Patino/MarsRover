@@ -22,3 +22,12 @@ label {
   font-weight: bold;
   color: #999;
 }
+
+.searchInput {
+  display: flex
+}
+
+.searchInput .searchButton {
+  margin-left: -50px;
+  margin-top: 12px;
+}

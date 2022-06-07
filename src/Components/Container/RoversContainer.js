@@ -16,12 +16,14 @@ const RoversContainer = () => {
   const roversAvailable = Rovers;
   const [roverSelected, setRoverSelected] = useState('');
   const [cameras, setCameras] = useState([]);
-  const [roverEmpty, setRoverEmpty] = useState(false);
+  const [roverPicturesByEarthDay, setRoverPicturesByEarthDay] = useState(false);
+  const [roverPicturesBySolDay, setRoverPicturesBySolDay] = useState(false);
   const [maxDate, setMaxDate] = useState('');
   const [maxSol, setMaxSol] = useState(0);
   const [landingDate, setLandingDate] = useState('');
   const [solToLookFor, setSolToLookFor] = useState(0);
   const [dateToLookFor, setDateToLookFor] = useState('');
+  const [cameraToLookFor, setCameraToLookFor] = useState('any');
 
   useLayoutEffect(() => {
     (async () => {
@@ -53,11 +55,26 @@ const RoversContainer = () => {
 
   useEffect(() => {
     (async () => {
-      opportunityInfoService.getRoverInfo().then(() => {});
+      if (roverPicturesByEarthDay) {
+        console.log('EARTH', 'dateToLookFor', dateToLookFor, cameraToLookFor);
+        opportunityInfoService.getRoverInfo().then(() => {});
+      } else if (roverPicturesBySolDay) {
+        console.log('SOL', 'solToLookFor', solToLookFor, cameraToLookFor);
+        opportunityInfoService.getRoverInfo().then(() => {});
+      }
     })();
-  }, [roverEmpty]);
+  }, [
+    roverPicturesByEarthDay,
+    roverPicturesBySolDay,
+    cameraToLookFor,
+    dateToLookFor,
+    cameraToLookFor
+  ]);
 
   const clickSelecRover = (event) => {
+    resetSearchingParams();
+    setDateToLookFor('');
+    setSolToLookFor(0);
     setRoverSelected(event.target.attributes.customname.value);
     setCameras(
       roversAvailable.find(
@@ -66,20 +83,33 @@ const RoversContainer = () => {
     );
   };
 
-  const searchClick = () => {
-    setRoverEmpty(!roverEmpty);
+  const handleClickSearchByEarthDate = () => {
+    setRoverPicturesByEarthDay(true);
+    setRoverPicturesBySolDay(false);
+  };
+  const handleClickSearchBySol = () => {
+    setRoverPicturesByEarthDay(false);
+    setRoverPicturesBySolDay(true);
   };
 
   const handleCameraChange = (event) => {
-    console.log(event.target.value);
+    resetSearchingParams();
+    setCameraToLookFor(event.target.value);
   };
 
   const handleSolDateChange = (event) => {
+    resetSearchingParams();
     setSolToLookFor(event.target.value);
   };
 
   const handleDateChange = (event) => {
+    resetSearchingParams();
     setDateToLookFor(event.target.value);
+  };
+
+  const resetSearchingParams = () => {
+    setRoverPicturesByEarthDay(false);
+    setRoverPicturesBySolDay(false);
   };
 
   return (
@@ -110,30 +140,36 @@ const RoversContainer = () => {
         </div>
         <div>
           {roverSelected && (
-            <InputText
-              title={'Earth Date'}
-              handleChange={handleDateChange}
-              placeholder={'Earth date YYYY-MM-dd'}
-            />
+            <div className={style.searchInput}>
+              <InputText
+                title={'Earth Date'}
+                handleChange={handleDateChange}
+                placeholder={'Earth date YYYY-MM-dd'}
+                value={dateToLookFor}
+              />
+              <div className={style.searchButton}>
+                <SearchButton title={''} click={handleClickSearchByEarthDate} />
+              </div>
+            </div>
           )}
         </div>
         <div>
           {roverSelected && (
-            <InputNumber
-              title={'Sol Date'}
-              min={0}
-              max={maxSol}
-              handleChange={handleSolDateChange}
-            />
+            <div className={style.searchInput}>
+              <InputNumber
+                title={'Sol Date'}
+                min={0}
+                max={maxSol}
+                value={solToLookFor}
+                handleChange={handleSolDateChange}
+              />
+              <div className={style.searchButton}>
+                <SearchButton title={''} click={handleClickSearchBySol} />
+              </div>
+            </div>
           )}
         </div>
-        <div>
-          {roverSelected && <SearchButton title={''} click={searchClick} />}
-        </div>
       </div>
-      {roverEmpty && (
-        <Error message={'Must pick a Rover to retrieve pictures'}></Error>
-      )}
       {dateToLookFor == '' && roverSelected && (
         <Error
           message={`The Earth date should be between ${landingDate} and ${maxDate}`}
