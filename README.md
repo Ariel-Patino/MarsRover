@@ -74,4 +74,4 @@ Example:
 foo@bar:~$ npm run prettier
 ```
 
-JIC: There was not enough time for the unit testing and forgot creating Feature branch :( 
+JIC: There was not enough time for the unit testing and I forgot to create Feature branch :(
