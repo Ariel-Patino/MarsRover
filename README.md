@@ -60,7 +60,7 @@ Web App will run in: _localhost:3000_
 ---
 
 **Note:**
-It is posibble run _prretier_, _test_, _lint_, etc. Just verify the _package.json_ file and see _scripts_ section, the run the command:
+It is posibble run _prettier_, _test_, _lint_, etc. Just verify the _package.json_ file and see _scripts_ section, then run the command:
 
 ---
 
