@@ -8,10 +8,10 @@ class Api {
     this.api = axiosProvider(`${this.baseUrl}${this.slug}`, {});
 
     this.setInterceptors({
-      beforeRequest: this._beforeRequest,
-      requestError: this._requestError,
-      afterResponse: this._afterResponse,
-      responseError: this._responseError
+      beforeRequest: this.beforeRequest,
+      requestError: this.requestError,
+      afterResponse: this.afterResponse,
+      responseError: this.responseError
     });
   }
   setInterceptors = ({
@@ -24,19 +24,19 @@ class Api {
     this.api.interceptors.response.use(afterResponse, responseError);
   };
 
-  _beforeRequest(config) {
+  beforeRequest(config) {
     return config;
   }
 
-  _requestError(error) {
+  requestError(error) {
     throw error;
   }
 
-  _afterResponse(resp) {
+  afterResponse(resp) {
     return resp.data || resp;
   }
 
-  _responseError(error) {
+  responseError(error) {
     throw error;
   }
 }
