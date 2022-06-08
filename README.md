@@ -73,3 +73,5 @@ Example:
 ```console
 foo@bar:~$ npm run prettier
 ```
+
+JIC: There was not enough time for the unit testing  :(
